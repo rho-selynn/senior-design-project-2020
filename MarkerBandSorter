@@ -1,0 +1,83 @@
+/* Marker Band Sorter
+ *  December 5, 2020
+ *  by Roselynn Conrady and Tony Nguyen
+ *  San Diego State University - Department of Mechanical Engineering
+ *  Senior Design Project
+ *  
+ *  
+ *  The purpose of this code is to operate 2 servo motors, 1 bipolar stepper motor, and a Pixy2 camera
+ */
+
+#include <Servo.h>
+#include <Pixy2.h>
+
+#define dirPin 2
+#define stepPin 3
+// 1 full rotation is 200 steps for the NEMA 23 stepper motor
+#define stepsPerRevolution 200
+
+Servo feederServo;
+Servo sorterServo;
+Pixy2 pixy;
+int prevMarkerBand;
+//int pinkMarkerBand = pixy.ccc.blocks->m_signature == 2;
+//int blueMarkerBand = pixy.ccc.blocks->m_signature == 1;
+int posBlue = 0;
+int posPink = 60;
+
+void setup() {
+  // attaching the servo objects to pin 9 and 10
+  feederServo.attach(9);
+  sorterServo.attach(10);
+  Serial.begin(115200);
+  Serial.println("Starting...\n");
+  // declare pins as outputs for the stepper motor
+  pinMode(stepPin, OUTPUT);
+  pinMode(dirPin, OUTPUT);
+  // initialize pixy object
+  pixy.init();
+}
+
+void loop() {
+  feedMarkerBand();
+  //delay(1100);
+  turnOnStepperMotorHalf();
+  //delay(4000);
+  //turnOffStepperMotor();
+  pixy.ccc.getBlocks(); // grabs Pixy blocks
+  delay(600); // to pause 600ms under the camera
+  //accessing "m_signature" variable from Pixy2.h
+  if (pixy.ccc.blocks->m_signature == 2){
+   sorterServo.write(posPink); // moves servo 60 degrees 
+  }
+  else if (pixy.ccc.blocks->m_signature == 1){
+    sorterServo.write(posBlue); // moves servo back to pos
+  }
+//  turnOnStepperMotor2();
+//  delay(1000);
+//  turnOffStepperMotor();
+}
+
+void feedMarkerBand(){
+  // need to experiment with this one
+  feederServo.write(0);
+  delay(250);
+  feederServo.write(5);
+}
+
+void turnOnStepperMotorHalf(){
+  // set the spinning direction clockwise
+  digitalWrite(dirPin, HIGH);
+  // spin the motor
+  // need to figure out how many steps
+  for (int i = 0; i < stepsPerRevolution/2; i++) {
+    // These four lines result in 1 step:
+    digitalWrite(stepPin, HIGH);
+    delayMicroseconds(2000);
+    digitalWrite(stepPin, LOW);
+    delayMicroseconds(2000);
+  }
+}
+
+//void turnOffStepperMotor(){
+//}
