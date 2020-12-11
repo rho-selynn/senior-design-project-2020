@@ -1,5 +1,5 @@
 /* Testing Servo motor with Pixy2 camera
- *  by Roselynn Conrady, Theresa Escolano, and Tony Lehuy Nguyen
+ *  by Roselynn Conrady, Theresa Escolano, and Tony Nguyen
  *  Special shoutout to Abigail Dabu, Raven Tomas, and Christopher Rico Rodriguez
  *  11 Nov 2020
  */
