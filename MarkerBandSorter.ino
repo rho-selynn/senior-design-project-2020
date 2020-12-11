@@ -1,6 +1,6 @@
 /* Marker Band Sorter
  *  December 5, 2020
- *  by Roselynn Conrady and Tony Nguyen
+ *  by Roselynn Conrady, Theresa Escolano, and Tony Nguyen
  *  San Diego State University - Department of Mechanical Engineering
  *  Senior Design Project
  *  
