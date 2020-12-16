@@ -1,6 +1,6 @@
 /* Marker Band Sorter
  *  December 5, 2020
- *  by Roselynn Conrady, Theresa Escolano, and Tony Nguyen
+ *  by Roselynn Conrady and Tony Nguyen
  *  San Diego State University - Department of Mechanical Engineering
  *  Senior Design Project
  *  
@@ -15,7 +15,8 @@
 #define dirPin 2
 #define stepPin 3
 // 1 full rotation is 1600 steps for the NEMA 23 stepper motor
-#define stepsPerRevolution 1050 
+// 1050 for the original sorter
+#define stepsPerRevolution 529 
 
 Servo feederServo;
 Servo sorterServo;
@@ -57,12 +58,18 @@ void loop() {
 }
 
 void feedMarkerBand(){
-  // need to experiment with this one
-  feederServo.write(30);
+  // mid size marker bands
+  /*feederServo.write(30);
   delay(100);
   feederServo.write(72);
     delay(100);
- 
+*/
+// larger size marker bands
+ feederServo.write(30);
+ delay(100);
+ feederServo.write(90);
+ delay(100);
+
 }
 
 void turnOnStepperMotor(){
